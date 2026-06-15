@@ -1,73 +1,71 @@
 /* popup.js */
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Popup UI Initialized. Binding state handlers.');
-
     const privacyToggle = document.getElementById('privacy-toggle');
-
-    // Load toggle state from storage
-    chrome.storage.local.get(['privacyModeEnabled'], (result) => {
-        privacyToggle.checked = !!result.privacyModeEnabled;
-    });
-
-    // Handle toggle switch
-    privacyToggle.addEventListener('change', (e) => {
-        const isEnabled = e.target.checked;
-        chrome.storage.local.set({ privacyModeEnabled: isEnabled }, () => {
-            console.log('Privacy mode set to:', isEnabled);
-        });
-    });
-
-    // --- Dynamic Flashlight Sizing ---
     const radiusSlider = document.getElementById('radius-slider');
     const radiusValueDisplay = document.getElementById('radius-value');
+    const btnTargetBlur = document.getElementById('btnTargetBlur');
+    const openLandingBtn = document.getElementById('open-landing-btn');
 
-    // Load saved radius from storage (default: 150)
-    chrome.storage.local.get(['flashlightRadius'], (result) => {
-        const savedRadius = result.flashlightRadius || 150;
-        radiusSlider.value = savedRadius;
-        radiusValueDisplay.textContent = `${savedRadius}px`;
+    // Initialize from storage
+    chrome.storage.local.get(['privacyModeEnabled', 'flashlightRadius'], (result) => {
+        if (privacyToggle) {
+            privacyToggle.checked = !!result.privacyModeEnabled;
+        }
+        if (radiusSlider && radiusValueDisplay) {
+            const savedRadius = result.flashlightRadius || 150;
+            radiusSlider.value = savedRadius;
+            radiusValueDisplay.textContent = `${savedRadius}px`;
+        }
     });
 
-    // Listen for real-time ultra-smooth dragging
-    radiusSlider.addEventListener('input', (e) => {
-        const newRadius = parseInt(e.target.value, 10);
-        radiusValueDisplay.textContent = `${newRadius}px`;
-        
-        // Save to storage natively
-        chrome.storage.local.set({ flashlightRadius: newRadius });
-        
-        // Direct explicit broadcast to active tab for zero-lag rendering
-        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs[0]) {
-                chrome.tabs.sendMessage(tabs[0].id, {
-                    action: 'UPDATE_RADIUS',
-                    radius: newRadius
-                }).catch(() => { /* Ignore dead receivers */ });
-            }
-        });
-    });
-
-    // --- Landing Page Button ---
-    const landingBtn = document.getElementById('open-landing-btn');
-    if (landingBtn) {
-        landingBtn.addEventListener('click', () => {
-            chrome.tabs.create({ url: 'landing.html' });
+    // Privacy Masking Toggle
+    if (privacyToggle) {
+        privacyToggle.addEventListener('change', (e) => {
+            // content.js listens to chrome.storage.onChanged for privacyModeEnabled
+            chrome.storage.local.set({ privacyModeEnabled: e.target.checked });
         });
     }
 
-    // --- Smart Blur Inspector Button ---
-    const blurBtn = document.getElementById('btnTargetBlur');
-    if (blurBtn) {
-        blurBtn.addEventListener('click', () => {
+    // Flashlight Radius Slider
+    if (radiusSlider) {
+        radiusSlider.addEventListener('input', (e) => {
+            const newRadius = parseInt(e.target.value, 10);
+            if (radiusValueDisplay) {
+                radiusValueDisplay.textContent = `${newRadius}px`;
+            }
+            
+            chrome.storage.local.set({ flashlightRadius: newRadius });
+            
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                if (tabs[0]) {
+                if (tabs && tabs[0] && tabs[0].id) {
                     chrome.tabs.sendMessage(tabs[0].id, {
-                        action: 'PE_TOGGLE_INSPECTOR'
-                    }).catch(() => { /* Ignore dead receivers */ });
+                        action: 'UPDATE_RADIUS',
+                        radius: newRadius
+                    }).catch(() => {});
                 }
             });
-            blurBtn.textContent = 'Active...';
-            setTimeout(() => { blurBtn.textContent = 'Select Element'; }, 2000);
+        });
+    }
+
+    // Smart Blur Inspector
+    if (btnTargetBlur) {
+        btnTargetBlur.addEventListener('click', () => {
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs && tabs[0] && tabs[0].id) {
+                    chrome.tabs.sendMessage(tabs[0].id, {
+                        action: 'PE_TOGGLE_INSPECTOR'
+                    }).catch(() => {});
+                }
+            });
+            btnTargetBlur.textContent = 'Active...';
+            setTimeout(() => { btnTargetBlur.textContent = 'Select Element'; }, 2000);
+        });
+    }
+
+    // Landing Page Link
+    if (openLandingBtn) {
+        openLandingBtn.addEventListener('click', () => {
+            chrome.tabs.create({ url: 'landing.html' });
         });
     }
 });

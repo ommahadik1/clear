@@ -14,8 +14,8 @@
     background-color: rgba(0, 0, 0, 0.1) !important;
     
     /* The Smooth Radial Flashlight Mask */
-    mask-image: radial-gradient(150px circle, transparent 0%, black 100%) !important;
-    -webkit-mask-image: radial-gradient(150px circle, transparent 0%, black 100%) !important;
+    mask-image: radial-gradient(circle at 50% 50%, transparent 0%, transparent 150px, black 200px) !important;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 0%, transparent 150px, black 200px) !important;
     
     /* Massive mask to prevent edge clipping when translated */
     mask-size: 10000px 10000px !important;

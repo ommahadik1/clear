@@ -676,6 +676,13 @@ body.light-mode .hero h1 {
         width: 100%;
         justify-content: center;
     }
+    select {
+        pointer-events: auto !important;
+        display: block;
+        position: relative;
+        z-index: 50;
+        flex-shrink: 0;
+    }
 }
 
 /* Live Blur Demo */

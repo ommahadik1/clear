@@ -33,7 +33,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["logger.js", "logo.png.png"],
+      "resources": ["logger.js", "logo.png"],
       "matches": ["<all_urls>"]
     }
   ],
