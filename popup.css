@@ -1,0 +1,228 @@
+/* popup.css */
+:root {
+    --bg-color: #09090B;
+    --card-bg: #18181B;
+    --card-border: #27272A;
+    --text-primary: #FAFAFA;
+    --text-muted: #A1A1AA;
+    --accent-blue: #0070F3;
+    --accent-blue-hover: #3291ff;
+    --accent-blue-glow: rgba(0, 112, 243, 0.4);
+    --toggle-off: #27272A;
+    --divider: #27272A;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 320px;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Inter', Roboto, system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.app-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.app-header h2 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Toggle Group Cards */
+.toggle-group {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+}
+
+.toggle-row:not(:last-child) {
+    border-bottom: 1px solid var(--divider);
+}
+
+.toggle-label {
+    font-weight: 500;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+/* Modern Pill Toggle */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-off);
+    transition: all 0.2s ease-in-out;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: all 0.2s ease-in-out;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--accent-blue);
+    box-shadow: 0 0 8px var(--accent-blue-glow);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* Slider Row */
+.slider-row {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px;
+    gap: 12px;
+}
+
+.slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.slider-value {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Premium Oceanic Blue Range Slider */
+.premium-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.premium-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--accent-blue-glow);
+    transition: all 0.15s ease-in-out;
+}
+
+.premium-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(0, 112, 243, 0.8);
+    background: var(--accent-blue-hover);
+}
+
+/* Action Button */
+.btn-primary {
+    background: rgba(0, 112, 243, 0.1);
+    border: 1px solid rgba(0, 112, 243, 0.2);
+    color: var(--accent-blue);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: rgba(0, 112, 243, 0.2);
+    border-color: rgba(0, 112, 243, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--accent-blue-glow);
+}
+
+/* Footer Link */
+.app-footer {
+    text-align: center;
+    margin-top: 8px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.btn-link:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}

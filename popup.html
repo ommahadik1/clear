@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prying Eyes</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <img src="logo.png.png" alt="Logo" class="app-logo">
+            <h2>Prying Eyes</h2>
+        </header>
+
+        <div class="toggle-group">
+            <div class="toggle-row">
+                <p class="toggle-label">Privacy Masking</p>
+                <label class="switch">
+                    <input type="checkbox" id="privacy-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="slider-row">
+                <div class="slider-header">
+                    <p class="toggle-label">Flashlight Radius</p>
+                    <span id="radius-value" class="slider-value">150px</span>
+                </div>
+                <input type="range" id="radius-slider" min="80" max="400" value="150" class="premium-slider">
+            </div>
+        </div>
+
+        <div class="toggle-group">
+            <div class="toggle-row">
+                <p class="toggle-label">Smart Blur Inspector</p>
+                <button id="btnTargetBlur" class="btn-primary">Select Element</button>
+            </div>
+        </div>
+
+        <footer class="app-footer">
+            <button id="open-landing-btn" class="btn-link">How it Works & Features</button>
+        </footer>
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+/* content.css */
+#prying-eyes-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    pointer-events: none !important; /* Ensure all clicks pass through to the page */
+    z-index: 2147483647 !important; /* Max z-index to stay on top of everything */
+    
+    /* The Blur Effect */
+    backdrop-filter: blur(15px) grayscale(0.2) !important;
+    -webkit-backdrop-filter: blur(15px) grayscale(0.2) !important;
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    
+    /* The Smooth Radial Flashlight Mask */
+    mask-image: radial-gradient(150px circle, transparent 0%, black 100%) !important;
+    -webkit-mask-image: radial-gradient(150px circle, transparent 0%, black 100%) !important;
+    
+    /* Massive mask to prevent edge clipping when translated */
+    mask-size: 10000px 10000px !important;
+    -webkit-mask-size: 10000px 10000px !important;
+    mask-repeat: no-repeat !important;
+    -webkit-mask-repeat: no-repeat !important;
+    
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, mask-position, -webkit-mask-position;
+}
+
+#prying-eyes-overlay.active {
+    opacity: 1;
+}

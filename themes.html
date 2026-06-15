@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Studio | Prying Eyes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="nav-brand">
+                <img src="logo.png.png" alt="Prying Eyes">
+                Prying Eyes
+            </a>
+        </nav>
+
+        <main class="hero" style="padding: 60px 0;">
+            <h1 style="font-size: 48px;">Theme Studio</h1>
+            <p>Customize your privacy experience. Select a primary accent color below to instantly sync with your extension.</p>
+            
+            <div class="theme-grid">
+                <div class="theme-card" data-color="#0070F3">
+                    <div class="color-preview" style="background: #0070F3; box-shadow: 0 0 20px rgba(0, 112, 243, 0.5);"></div>
+                    <h3>Oceanic Blue</h3>
+                    <p>The default premium aesthetic.</p>
+                </div>
+                
+                <div class="theme-card" data-color="#FF007F">
+                    <div class="color-preview" style="background: #FF007F; box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);"></div>
+                    <h3>Cyber Neon Pink</h3>
+                    <p>Vibrant, retro-futuristic glow.</p>
+                </div>
+
+                <div class="theme-card" data-color="#00FF41">
+                    <div class="color-preview" style="background: #00FF41; box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);"></div>
+                    <h3>Matrix Green</h3>
+                    <p>Classic terminal hacker vibes.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p><a href="github.html">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.theme-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const hexColor = card.getAttribute('data-color');
+                
+                // Fire a global window event that the extension can listen for
+                window.postMessage({ 
+                    type: 'PE_WEB_THEME_UPDATE', 
+                    color: hexColor 
+                }, '*');
+                
+                // Visual feedback
+                const originalText = card.querySelector('p').innerText;
+                card.querySelector('p').innerText = 'Theme Synced!';
+                card.style.borderColor = hexColor;
+                
+                setTimeout(() => {
+                    card.querySelector('p').innerText = originalText;
+                    card.style.borderColor = 'var(--card-border)';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

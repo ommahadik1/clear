@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prying Eyes | Premium Privacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A1A1AA;
+            --accent-glow: rgba(139, 92, 246, 0.15);
+            --accent-gradient: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --card-hover: rgba(255, 255, 255, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+            background-attachment: fixed;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 80px 0;
+        }
+
+        .hero-logo-wrapper {
+            position: relative;
+            margin-bottom: 32px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-logo-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: var(--accent-gradient);
+            filter: blur(40px);
+            opacity: 0.5;
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .logo {
+            width: 96px;
+            height: 96px;
+            position: relative;
+            z-index: 1;
+            object-fit: contain;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            max-width: 800px;
+        }
+
+        .subtitle {
+            font-size: clamp(18px, 2vw, 22px);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: #fff;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(rgba(255,255,255,0.1), transparent);
+            border-radius: 12px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 120px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .icon-container {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: #A78BFA;
+        }
+
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FFF;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .kbd {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom-width: 2px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: 'Inter', monospace;
+            font-size: 13px;
+            color: #E4E4E7;
+            margin-top: 16px;
+            font-weight: 500;
+        }
+
+        /* How it Works */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .steps-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto 120px;
+        }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 24px; bottom: 0;
+            width: 1px;
+            background: linear-gradient(180deg, transparent, var(--card-border) 10%, var(--card-border) 90%, transparent);
+            z-index: 0;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-color);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            color: #fff;
+            flex-shrink: 0;
+            margin-right: 32px;
+            box-shadow: 0 0 0 8px var(--bg-color);
+        }
+
+        .step:hover .step-number {
+            border-color: #8B5CF6;
+            color: #8B5CF6;
+            transition: all 0.3s ease;
+        }
+
+        .step-content {
+            padding-top: 12px;
+        }
+
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FFF;
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.02) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .footer-banner h3 {
+            color: #34D399;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .footer-banner p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .steps-container::before { left: 20px; }
+            .step-number { width: 40px; height: 40px; margin-right: 20px; }
+            .footer-banner { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-logo-wrapper fade-in">
+                <img src="logo.png.png" alt="Logo" class="logo">
+            </div>
+            <div class="badge fade-in delay-1">Prying Eyes v2.0</div>
+            <h1 class="fade-in delay-2">Absolute Contextual Privacy.</h1>
+            <p class="subtitle fade-in delay-3">
+                Hardware-accelerated screen masking that seamlessly follows your focus. Protect your workflow from over-the-shoulder snooping with zero performance lag.
+            </p>
+            <div class="fade-in delay-4">
+                <button class="btn-primary" id="close-btn">
+                    <span>Initialize Workspace</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-grid">
+            <div class="feature-card fade-in delay-2">
+                <div class="icon-container">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
+                <h3 class="feature-title">Native Acceleration</h3>
+                <p class="feature-desc">Utilizes pure CSS GPU masking to render a perfectly smooth 60fps radial gradient that tracks your cursor instantly without ever dropping a frame.</p>
+            </div>
+            
+            <div class="feature-card fade-in delay-3">
+                <div class="icon-container" style="color: #60A5FA; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </div>
+                <h3 class="feature-title">Global Kill Switch</h3>
+                <p class="feature-desc">When a colleague needs to see your screen, bypass the mask entirely using the system-wide shortcut.</p>
+                <div class="kbd">Ctrl + Shift + E</div>
+            </div>
+
+            <div class="feature-card fade-in delay-4">
+                <div class="icon-container" style="color: #F472B6; background: rgba(244, 114, 182, 0.1); border-color: rgba(244, 114, 182, 0.2);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
+                <h3 class="feature-title">Dynamic Fluid Radius</h3>
+                <p class="feature-desc">Seamlessly expand or contract your focal area via the popup menu slider. Changes propagate instantly to all open tabs.</p>
+            </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="section-header fade-in delay-2">
+            <h2>Seamless Integration</h2>
+        </div>
+        
+        <div class="steps-container">
+            <div class="step fade-in delay-2">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3 class="step-title">Pin the Extension</h3>
+                    <p class="step-desc">Pin Prying Eyes to your Chrome toolbar for easy access. Click the icon to reveal the master control panel.</p>
+                </div>
+            </div>
+            <div class="step-row"></div>
+            
+            <div class="step fade-in delay-3">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3 class="step-title">Engage the Mask</h3>
+                    <p class="step-desc">Flip the "Privacy Masking" switch. The environment will immediately dim, casting a spotlight directly on your cursor.</p>
+                </div>
+            </div>
+
+            <div class="step fade-in delay-4">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3 class="step-title">Maintain Flow</h3>
+                    <p class="step-desc">Continue working normally. If someone approaches your desk, the rest of your screen is securely obscured.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Banner -->
+        <div class="footer-banner fade-in delay-3">
+            <h3>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                100% Offline by Design
+            </h3>
+            <p>Prying Eyes is built for absolute security. It operates strictly within your browser, utilizes zero external trackers, and never makes a single network request. Your privacy is guaranteed.</p>
+        </div>
+    </div>
+
+    <script src="landing.js"></script>
+</body>
+</html>
