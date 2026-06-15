@@ -1,5 +1,5 @@
 /* content.css */
-#prying-eyes-overlay {
+#clear-overlay {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -28,6 +28,6 @@
     will-change: opacity, mask-position, -webkit-mask-position;
 }
 
-#prying-eyes-overlay.active {
+#clear-overlay.active {
     opacity: 1;
 }

@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Prying Eyes",
+  "name": "Clear.",
   "version": "1.0",
   "description": "Zero-lag privacy extension.",
   "permissions": [

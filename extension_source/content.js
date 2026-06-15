@@ -40,10 +40,10 @@
 
     // 1. Setup DOM Elements (strictly Top Frame only)
     if (isTopFrame) {
-        overlay = document.getElementById('prying-eyes-overlay');
+        overlay = document.getElementById('clear-overlay');
         if (!overlay) {
             overlay = document.createElement('div');
-            overlay.id = 'prying-eyes-overlay';
+            overlay.id = 'clear-overlay';
             document.body.appendChild(overlay);
         }
     }
@@ -95,7 +95,7 @@
             } else {
                 // Inside an iframe: relay coordinates up to parent
                 window.parent.postMessage({
-                    type: 'PRYING_EYES_IFRAME_MOUSEMOVE',
+                    type: 'CLEAR_IFRAME_MOUSEMOVE',
                     x: e.clientX,
                     y: e.clientY
                 }, '*');
@@ -105,7 +105,7 @@
 
     // Recursively catch iframe messages and calculate absolute offset bounding boxes
     window.addEventListener('message', (e) => {
-        if (isEnabled && e.data && e.data.type === 'PRYING_EYES_IFRAME_MOUSEMOVE') {
+        if (isEnabled && e.data && e.data.type === 'CLEAR_IFRAME_MOUSEMOVE') {
             const iframes = document.querySelectorAll('iframe');
             for (let iframe of iframes) {
                 if (iframe.contentWindow === e.source) {
@@ -118,7 +118,7 @@
                     } else {
                         // Forward recursively to next parent if deeply nested
                         window.parent.postMessage({
-                            type: 'PRYING_EYES_IFRAME_MOUSEMOVE',
+                            type: 'CLEAR_IFRAME_MOUSEMOVE',
                             x: absoluteX,
                             y: absoluteY
                         }, '*');
@@ -137,9 +137,9 @@
         } else if (message.action === 'PE_TOGGLE_INSPECTOR' && isTopFrame) {
             isInspectorMode = !isInspectorMode;
             if (isInspectorMode) {
-                console.log("Prying Eyes: Smart Element Blur Inspector ON.");
+                console.log("Clear: Smart Element Blur Inspector ON.");
             } else {
-                console.log("Prying Eyes: Smart Element Blur Inspector OFF.");
+                console.log("Clear: Smart Element Blur Inspector OFF.");
             }
         }
     });
@@ -190,7 +190,7 @@
             e.target.classList.add('pe-smart-blur');
             
             isInspectorMode = false;
-            console.log("Prying Eyes: Element blurred. Inspector OFF.");
+            console.log("Clear: Element blurred. Inspector OFF.");
         }
     }, true);
 

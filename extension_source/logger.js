@@ -4,14 +4,14 @@
 const globalScope = typeof window !== 'undefined' ? window : self;
 
 /**
- * Standardized Prying Eyes Logging Utility
+ * Standardized Clear. Logging Utility
  * @param {string} component - The name of the script/module (e.g., 'Background', 'Offscreen')
  * @param {string} message - The diagnostic text
  * @param {any} [data=null] - Optional object/array to dump to the console
  * @param {string} [type='info'] - 'info', 'warn', or 'error'
  */
 function peLog(component, message, data = null, type = 'info') {
-    const prefix = `[PryingEyes: ${component}]`;
+    const prefix = `[Clear: ${component}]`;
     // Premium Blue styling for our console prefix
     const style = 'font-weight: 700; color: #0070F3; background-color: rgba(0, 112, 243, 0.1); padding: 2px 6px; border-radius: 4px;';
     

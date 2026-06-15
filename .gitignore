@@ -1,0 +1,5 @@
+.bak
+/models/
+/webgazer_files/
+*.download
+.env

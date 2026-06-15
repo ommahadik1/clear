@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Theme Studio | Prying Eyes</title>
+    <title>Theme Studio | Clear.</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="theme-init.js"></script>
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
         <nav class="navbar">
             <a href="index.html" class="nav-brand">
-                <img src="logo.png.png" alt="Prying Eyes">
-                Prying Eyes
+                Clear.
             </a>
         </nav>
 
@@ -41,7 +42,7 @@
         </main>
 
         <footer>
-            <p><a href="github.html">View on GitHub</a></p>
+            <p><a href="https://github.com/ommahadik1/clear.git" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>
         </footer>
     </div>
 
@@ -52,13 +53,19 @@
                 
                 // Fire a global window event that the extension can listen for
                 window.postMessage({ 
-                    type: 'PE_WEB_THEME_UPDATE', 
+                    type: 'CLEAR_WEB_THEME_UPDATE', 
                     color: hexColor 
                 }, '*');
                 
+                // Instantly update the CSS variable globally
+                document.documentElement.style.setProperty('--accent-color', hexColor);
+                
+                // Save to localStorage for cross-page persistence
+                localStorage.setItem('pe_theme_color', hexColor);
+                
                 // Visual feedback
                 const originalText = card.querySelector('p').innerText;
-                card.querySelector('p').innerText = 'Theme Synced!';
+                card.querySelector('p').innerText = 'Applied! ✓';
                 card.style.borderColor = hexColor;
                 
                 setTimeout(() => {
