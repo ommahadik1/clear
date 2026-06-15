@@ -641,6 +641,43 @@ body.light-mode .hero h1 {
     }
 }
 
+@media (max-width: 768px) {
+    nav ul {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        scrollbar-width: none;
+    }
+    nav ul::-webkit-scrollbar {
+        display: none;
+    }
+    nav ul li a {
+        font-size: 0.9rem;
+    }
+    .flowchart-arrow {
+        width: 2px !important;
+        min-width: 2px !important;
+        height: 30px !important;
+        padding: 0 !important;
+        margin: 10px auto !important;
+        background-color: var(--accent-color);
+        border: none;
+    }
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    .button-group a, .button-group button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
 /* Live Blur Demo */
 .live-blur-demo {
     display: inline-block;
