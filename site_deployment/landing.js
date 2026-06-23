@@ -44,3 +44,22 @@ async function fetchContributors() {
 
 // Call asynchronously to not block rendering
 fetchContributors();
+
+// FAQ Accordion Logic
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        button.classList.toggle('active');
+        const answer = button.nextElementSibling;
+        
+        if (answer.style.maxHeight) {
+            answer.style.maxHeight = null;
+            answer.classList.remove('open');
+        } else {
+            answer.classList.add('open');
+            // Adding a small delay to let the class apply padding before calculating scrollHeight
+            requestAnimationFrame(() => {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            });
+        }
+    });
+});
