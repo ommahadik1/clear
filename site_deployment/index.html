@@ -319,7 +319,6 @@
             <div class="copyright">&copy; 2026 Om Mahadik. All rights reserved.</div>
         </div>
     </footer>
-    </div>
 
     <script>
         const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -338,15 +337,50 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>`;
 
-        let isLightMode = document.body.classList.contains('light-mode');
+        let isLightMode = document.documentElement.classList.contains('light-mode');
         if (isLightMode) {
             themeToggleBtn.innerHTML = moonIcon;
         }
-        themeToggleBtn.addEventListener('click', () => {
-            isLightMode = !isLightMode;
-            document.body.classList.toggle('light-mode', isLightMode);
-            themeToggleBtn.innerHTML = isLightMode ? moonIcon : sunIcon;
-            localStorage.setItem('pe_light_mode', isLightMode);
+        themeToggleBtn.addEventListener('click', (e) => {
+            const willBeLight = !document.documentElement.classList.contains('light-mode');
+            
+            const doToggle = () => {
+                document.documentElement.classList.toggle('light-mode', willBeLight);
+                themeToggleBtn.innerHTML = willBeLight ? moonIcon : sunIcon;
+                localStorage.setItem('pe_light_mode', willBeLight);
+            };
+
+            if (!document.startViewTransition) {
+                doToggle();
+                return;
+            }
+
+            const rect = themeToggleBtn.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            const transition = document.startViewTransition(doToggle);
+
+            transition.ready.then(() => {
+                const maxRadius = Math.hypot(
+                    Math.max(x, window.innerWidth - x),
+                    Math.max(y, window.innerHeight - y)
+                );
+                
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${maxRadius}px at ${x}px ${y}px)`
+                        ]
+                    },
+                    {
+                        duration: 600,
+                        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+                        pseudoElement: '::view-transition-new(root)'
+                    }
+                );
+            });
         });
 
         // Live Blur Demo (Scrub-to-Reveal)
@@ -360,3 +394,4 @@
     <script src="landing.js" defer></script>
 </body>
 </html>
+

@@ -165,7 +165,7 @@
         }
     });
 
-    // 5. Init Configuration
+    // 6. Init Configuration
     window.addEventListener('mousemove', handleMouseMove);
 
     // --- DOM Inspector Events ---

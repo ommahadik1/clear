@@ -28,13 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Flashlight Radius Slider
     if (radiusSlider) {
+        // Real-time preview via messages
         radiusSlider.addEventListener('input', (e) => {
             const newRadius = parseInt(e.target.value, 10);
             if (radiusValueDisplay) {
                 radiusValueDisplay.textContent = `${newRadius}px`;
             }
-            
-            chrome.storage.local.set({ flashlightRadius: newRadius });
             
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                 if (tabs && tabs[0] && tabs[0].id) {
@@ -44,6 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     }).catch(() => {});
                 }
             });
+        });
+
+        // Save to storage only when user releases the slider
+        radiusSlider.addEventListener('change', (e) => {
+            const newRadius = parseInt(e.target.value, 10);
+            chrome.storage.local.set({ flashlightRadius: newRadius });
         });
     }
 

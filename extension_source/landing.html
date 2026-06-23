@@ -3,463 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clear. | Premium Privacy</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #050505;
-            --text-primary: #FFFFFF;
-            --text-secondary: #A1A1AA;
-            --accent-glow: rgba(139, 92, 246, 0.15);
-            --accent-gradient: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
-            --card-bg: rgba(255, 255, 255, 0.02);
-            --card-border: rgba(255, 255, 255, 0.05);
-            --card-hover: rgba(255, 255, 255, 0.04);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
-            background-attachment: fixed;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
-        }
-
-        .fade-in {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-        }
-        
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
-
-        /* Layout */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            padding: 80px 0;
-        }
-
-        .hero-logo-wrapper {
-            position: relative;
-            margin-bottom: 32px;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .hero-logo-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: var(--accent-gradient);
-            filter: blur(40px);
-            opacity: 0.5;
-            z-index: -1;
-            border-radius: 50%;
-        }
-
-        .logo {
-            width: 96px;
-            height: 96px;
-            position: relative;
-            z-index: 1;
-            object-fit: contain;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 16px;
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-            letter-spacing: 0.02em;
-        }
-
-        h1 {
-            font-size: clamp(40px, 6vw, 64px);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            margin-bottom: 24px;
-            background: linear-gradient(180deg, #FFFFFF 0%, #A1A1AA 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            max-width: 800px;
-        }
-
-        .subtitle {
-            font-size: clamp(18px, 2vw, 22px);
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 40px;
-            font-weight: 400;
-        }
-
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: #fff;
-            border: none;
-            padding: 16px 36px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(255,255,255,0.1), transparent);
-            border-radius: 12px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.4);
-        }
-
-        /* Features Section */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-            margin-bottom: 120px;
-        }
-
-        .feature-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 32px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: var(--card-hover);
-            border-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .icon-container {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(139, 92, 246, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(139, 92, 246, 0.2);
-            color: #A78BFA;
-        }
-
-        .feature-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #FFF;
-            letter-spacing: -0.01em;
-        }
-
-        .feature-desc {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .kbd {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom-width: 2px;
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-family: 'Inter', monospace;
-            font-size: 13px;
-            color: #E4E4E7;
-            margin-top: 16px;
-            font-weight: 500;
-        }
-
-        /* How it Works */
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .steps-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto 120px;
-        }
-
-        .steps-container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 24px; bottom: 0;
-            width: 1px;
-            background: linear-gradient(180deg, transparent, var(--card-border) 10%, var(--card-border) 90%, transparent);
-            z-index: 0;
-        }
-
-        .step {
-            display: flex;
-            margin-bottom: 48px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .step:last-child {
-            margin-bottom: 0;
-        }
-
-        .step-number {
-            width: 48px;
-            height: 48px;
-            background: var(--bg-color);
-            border: 1px solid var(--card-border);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            color: #fff;
-            flex-shrink: 0;
-            margin-right: 32px;
-            box-shadow: 0 0 0 8px var(--bg-color);
-        }
-
-        .step:hover .step-number {
-            border-color: #8B5CF6;
-            color: #8B5CF6;
-            transition: all 0.3s ease;
-        }
-
-        .step-content {
-            padding-top: 12px;
-        }
-
-        .step-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: #FFF;
-            margin-bottom: 8px;
-        }
-
-        .step-desc {
-            color: var(--text-secondary);
-            font-size: 16px;
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        .footer-banner {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.02) 100%);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            border-radius: 24px;
-            padding: 48px;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .footer-banner h3 {
-            color: #34D399;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-
-        .footer-banner p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .steps-container::before { left: 20px; }
-            .step-number { width: 40px; height: 40px; margin-right: 20px; }
-            .footer-banner { padding: 32px 20px; }
-        }
-    </style>
+    <title>Clear. | Contextual Privacy</title>
+    <link rel="icon" type="image/png" href="clear-mag-logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="theme-init.js"></script>
 </head>
 <body>
+    <div class="ambient-glow"></div>
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#contribute">Contribute</a>
+            <a href="#contributors">Contributors</a>
+            <a href="changelog.html">Changelog</a>
+        </div>
+        <div class="nav-actions">
+            <button id="themeToggleBtn" class="btn-icon theme-toggle" aria-label="Toggle Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+            <a href="https://github.com/ommahadik1/clear.git" class="btn-github" target="_blank" rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </nav>
     <div class="container">
-        <!-- Hero -->
-        <div class="hero">
-            <div class="badge fade-in delay-1">Clear. v2.0</div>
-            <h1 class="fade-in delay-2">Absolute Contextual Privacy.</h1>
-            <p class="subtitle fade-in delay-3">
-                Hardware-accelerated screen masking that seamlessly follows your focus. Protect your workflow from over-the-shoulder snooping with zero performance lag.
-            </p>
-            <div class="fade-in delay-4">
-                <button class="btn-primary" id="close-btn">
-                    <span>Initialize Workspace</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
+        <nav class="navbar">
+            <a href="landing.html" class="nav-brand">
+                Clear.
+            </a>
+        </nav>
+
+        <main class="hero">
+            <div class="hero-content">
+                <h1>Absolute <span class="live-blur-demo">Contextual Privacy.</span></h1>
+                <p>Hardware-accelerated screen masking and smart element blur. Protect your workflow with zero performance lag.</p>
+                
+                <div class="browser-buttons">
+                    <button class="btn btn-chrome" id="close-btn" style="cursor: pointer; font-family: inherit; font-size: 16px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        Initialize Workspace
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <section id="features" class="content-section scroll-reveal">
+            <h2>Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card scroll-reveal delay-1">
+                    <h3>Contextual Privacy</h3>
+                    <p>Targeted blurring without breaking the site. Keep everything else crystal clear.</p>
+                </div>
+                <div class="feature-card scroll-reveal delay-2">
+                    <h3>Global Spotlight</h3>
+                    <p>Full-page mask for extreme privacy. A smooth radial spotlight follows your cursor.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="how-it-works" class="content-section scroll-reveal">
+            <h2>How it works</h2>
+            <div class="flowchart-container">
+                <!-- Step 1 -->
+                <div class="flowchart-step scroll-reveal delay-1">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">01</div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                        </div>
+                        <h4>Activate sniper mode</h4>
+                        <p>Enable the precision selector</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flowchart-step scroll-reveal delay-2">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">02</div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14.5 13.5L11 10M11 10v-5a1.5 1.5 0 0 0-3 0v11.23a2.5 2.5 0 0 1-1.34 2.22l-1.34.67a1.5 1.5 0 0 0 .67 2.88H15a4 4 0 0 0 4-4V11a2 2 0 0 0-2-2h-2.5"></path>
+                            </svg>
+                        </div>
+                        <h4>Hover & highlight</h4>
+                        <p>Preview elements before clicking</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flowchart-step scroll-reveal delay-3">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">03</div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                                <line x1="2" x2="22" y1="2" y2="22"></line>
+                            </svg>
+                        </div>
+                        <h4>Click to obscure</h4>
+                        <p>Redact selected content instantly</p>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <div class="flowchart-step scroll-reveal delay-4">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">04</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h4>Hover to reveal</h4>
+                        <p>Peek at hidden sections</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contribute" class="content-section scroll-reveal">
+            <h2>Contribute</h2>
+            <div class="flowchart-container">
+                <!-- Step 1 -->
+                <div class="flowchart-step scroll-reveal delay-1">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">01</div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="18" r="3"></circle>
+                                <circle cx="6" cy="6" r="3"></circle>
+                                <circle cx="18" cy="6" r="3"></circle>
+                                <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"></path>
+                                <path d="M12 12v3"></path>
+                            </svg>
+                        </div>
+                        <h4>Fork the Repo</h4>
+                        <p>Create your own copy of the project</p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flowchart-step scroll-reveal delay-2">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">02</div>
+                        <div class="step-connector"></div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <h4>Build a Feature</h4>
+                        <p>Write code and add your improvements</p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flowchart-step scroll-reveal delay-3">
+                    <div class="step-marker-wrapper">
+                        <div class="step-marker">03</div>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="18" r="3"></circle>
+                                <circle cx="6" cy="6" r="3"></circle>
+                                <path d="M13 6h3a2 2 0 0 1 2 2v7"></path>
+                                <line x1="6" y1="9" x2="6" y2="21"></line>
+                            </svg>
+                        </div>
+                        <h4>Submit a PR</h4>
+                        <p>Send your changes for review</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contributors" class="content-section scroll-reveal">
+            <h2>Contributors</h2>
+            <div class="contributor-grid">
+                <div class="contributor-card scroll-reveal delay-1">
+                    <img src="https://github.com/ommahadik1.png" alt="Om Mahadik" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 16px; display: block; border: 2px solid var(--accent-color);">
+                    <h3>Om Mahadik</h3>
+                    <p>Creator</p>
+                </div>
+            </div>
+            <div id="dynamic-contributors" class="contributors-grid scroll-reveal delay-2"></div>
+        </section>
+
+        <div class="security-banner-wrapper scroll-reveal">
+            <div class="security-banner">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+                <div class="security-text">
+                    <h4>Zero Tracking</h4>
+                    <p>100% local operation. No data is ever sent to external servers.</p>
+                </div>
             </div>
         </div>
 
-        <!-- Features -->
-        <div class="features-grid">
-            <div class="feature-card scroll-reveal delay-1">
-                <div class="icon-container">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        <section id="faq" class="faq-section scroll-reveal">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Does Clear collect my browsing data?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely not. Clear operates 100% locally on your device. We have zero tracking, no analytics, and no data leaves your browser.</p>
+                    </div>
                 </div>
-                <h3 class="feature-title">Native Acceleration</h3>
-                <p class="feature-desc">Utilizes pure CSS GPU masking to render a perfectly smooth 60fps radial gradient that tracks your cursor instantly without ever dropping a frame.</p>
-            </div>
-            
-            <div class="feature-card scroll-reveal delay-2">
-                <div class="icon-container" style="color: #60A5FA; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How does the Smart Blur feature work?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>It allows you to click specific elements on any webpage—like account balances or private messages—and instantly apply a local blur without breaking the site layout.</p>
+                    </div>
                 </div>
-                <h3 class="feature-title">Global Kill Switch</h3>
-                <p class="feature-desc">When a colleague needs to see your screen, bypass the mask entirely using the system-wide shortcut.</p>
-                <div class="kbd">Ctrl + Shift + E</div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is this extension free to use?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, Clear is completely free and open-source.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Does it work on every website?</span>
+                        <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, our DOM-manipulation technology is designed to work universally across modern web pages.</p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="feature-card scroll-reveal delay-3">
-                <div class="icon-container" style="color: #F472B6; background: rgba(244, 114, 182, 0.1); border-color: rgba(244, 114, 182, 0.2);">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-                </div>
-                <h3 class="feature-title">Dynamic Fluid Radius</h3>
-                <p class="feature-desc">Seamlessly expand or contract your focal area via the popup menu slider. Changes propagate instantly to all open tabs.</p>
-            </div>
-        </div>
-
-        <!-- Steps -->
-        <div class="section-header scroll-reveal delay-1">
-            <h2>Seamless Integration</h2>
-        </div>
-        
-        <div class="steps-container">
-            <div class="step scroll-reveal delay-1">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3 class="step-title">Pin the Extension</h3>
-                    <p class="step-desc">Pin Clear. to your Chrome toolbar for easy access. Click the icon to reveal the master control panel.</p>
-                </div>
-            </div>
-            <div class="step-row"></div>
-            
-            <div class="step scroll-reveal delay-2">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3 class="step-title">Engage the Mask</h3>
-                    <p class="step-desc">Flip the "Privacy Masking" switch. The environment will immediately dim, casting a spotlight directly on your cursor.</p>
-                </div>
-            </div>
-
-            <div class="step scroll-reveal delay-3">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3 class="step-title">Maintain Flow</h3>
-                    <p class="step-desc">Continue working normally. If someone approaches your desk, the rest of your screen is securely obscured.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Privacy Banner -->
-        <div class="footer-banner scroll-reveal delay-1">
-            <h3>
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                100% Offline by Design
-            </h3>
-            <p>Clear. is built for absolute security. It operates strictly within your browser, utilizes zero external trackers, and never makes a single network request. Your privacy is guaranteed.</p>
-        </div>
     </div>
 
+    <footer class="global-footer">
+        <div class="footer-content">
+            <div class="footer-brand">Clear. <span class="muted-text">Privacy Extension</span></div>
+            <div class="legal-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="support.html">Contact & Support</a>
+            </div>
+            <div class="copyright">&copy; 2026 Om Mahadik. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>`;
+        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>`;
+
+        let isLightMode = document.documentElement.classList.contains('light-mode');
+        if (isLightMode) {
+            themeToggleBtn.innerHTML = moonIcon;
+        }
+        themeToggleBtn.addEventListener('click', (e) => {
+            const willBeLight = !document.documentElement.classList.contains('light-mode');
+            
+            const doToggle = () => {
+                document.documentElement.classList.toggle('light-mode', willBeLight);
+                themeToggleBtn.innerHTML = willBeLight ? moonIcon : sunIcon;
+                localStorage.setItem('pe_light_mode', willBeLight);
+            };
+
+            if (!document.startViewTransition) {
+                doToggle();
+                return;
+            }
+
+            const rect = themeToggleBtn.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+
+            const transition = document.startViewTransition(doToggle);
+
+            transition.ready.then(() => {
+                const maxRadius = Math.hypot(
+                    Math.max(x, window.innerWidth - x),
+                    Math.max(y, window.innerHeight - y)
+                );
+                
+                document.documentElement.animate(
+                    {
+                        clipPath: [
+                            `circle(0px at ${x}px ${y}px)`,
+                            `circle(${maxRadius}px at ${x}px ${y}px)`
+                        ]
+                    },
+                    {
+                        duration: 600,
+                        easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+                        pseudoElement: '::view-transition-new(root)'
+                    }
+                );
+            });
+        });
+
+        // Live Blur Demo (Scrub-to-Reveal)
+        const blurDemoElement = document.querySelector('.live-blur-demo');
+        if (blurDemoElement) {
+            const text = blurDemoElement.innerText;
+            blurDemoElement.innerHTML = text.split(' ').map(word => '<span>' + word + '</span>').join(' ');
+        }
+    </script>
     <script src="scroll-trigger.js"></script>
-    <script src="landing.js"></script>
+    <script src="landing.js" defer></script>
 </body>
 </html>
+
+
