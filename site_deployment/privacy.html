@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Clear.</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="theme-init.js"></script>
+    <style>
+        .legal-container {
+            max-width: 800px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .legal-container h1, .legal-container h2 {
+            color: var(--text-primary);
+        }
+        .legal-container h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(180deg, var(--text-primary) 0%, color-mix(in srgb, var(--text-primary) 50%, transparent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .legal-container h2 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .legal-container p, .legal-container ul {
+            margin-bottom: 1rem;
+        }
+        .legal-container ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    <nav class="top-nav">
+        <div class="nav-links">
+            <a href="index.html">Back to Home</a>
+        </div>
+        <div class="nav-actions">
+            <button id="themeToggleBtn" class="btn-icon theme-toggle" aria-label="Toggle Theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+        <nav class="navbar">
+            <a href="index.html" class="nav-brand">
+                Clear.
+            </a>
+        </nav>
+        
+        <div class="legal-container scroll-reveal">
+            <h1>Privacy Policy</h1>
+            <p><strong>Effective Date:</strong> June 23, 2026</p>
+            
+            <h2>1. Zero Data Collection</h2>
+            <p>clear. was built from the ground up with absolute contextual privacy in mind. We believe your data is yours alone. Therefore, our extension operates with a strict <strong>Zero Tracking</strong> policy. We do not collect, store, transmit, or monetize any of your personal data, browsing history, keystrokes, or screen contents.</p>
+            
+            <h2>2. 100% Local Processing</h2>
+            <p>All masking, blurring, and content manipulation features provided by the extension are processed entirely on your local machine using hardware-accelerated algorithms. No information ever leaves your device or is communicated to external servers.</p>
+            
+            <h2>3. Cookies and Analytics</h2>
+            <p>We do not use cookies, trackers, or any third-party analytics within the extension. Our landing page may use basic local storage exclusively to remember your light/dark mode preference, but this information is never transmitted to us or any third party.</p>
+            
+            <h2>4. Compliance with GDPR and CCPA</h2>
+            <p>Because we do not collect any personal data, we are inherently compliant with the General Data Protection Regulation (GDPR), the California Consumer Privacy Act (CCPA), and other global privacy frameworks. There is no personal data for us to provide, rectify, or erase.</p>
+            
+            <h2>5. Changes to this Policy</h2>
+            <p>We may update this Privacy Policy occasionally. Because we do not collect contact information, we cannot notify you directly of changes. We encourage you to review this page periodically. Continued use of the extension constitutes acceptance of the latest policy.</p>
+            
+            <h2>6. Contact Us</h2>
+            <p>If you have any questions regarding this Privacy Policy, please reach out via our GitHub repository issues page.</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Clear. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="privacy.html">Privacy Policy</a> | 
+                <a href="terms.html">Terms & Conditions</a> | 
+                <a href="support.html">Contact & Bug Report</a>
+            </div>
+        </footer>
+    </div>
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+        const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+        let isLightMode = document.body.classList.contains('light-mode');
+        if (isLightMode) {
+            themeToggleBtn.innerHTML = moonIcon;
+        }
+        themeToggleBtn.addEventListener('click', () => {
+            isLightMode = !isLightMode;
+            document.body.classList.toggle('light-mode', isLightMode);
+            themeToggleBtn.innerHTML = isLightMode ? moonIcon : sunIcon;
+            localStorage.setItem('pe_light_mode', isLightMode);
+        });
+    </script>
+    <script src="scroll-trigger.js"></script>
+</body>
+</html>

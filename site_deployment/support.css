@@ -1,0 +1,237 @@
+/* support.css - Minimalist Premium Support Page */
+
+:root {
+    --success-green: #10B981;
+}
+
+body {
+    background-color: var(--bg-color, #0A0F1A);
+    color: var(--text-primary, #F8FAFC);
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Minimalist Container */
+.support-wrapper {
+    width: 100%;
+    max-width: 520px;
+    margin: auto; /* Vertically and horizontally centers in a flex container */
+    box-sizing: border-box;
+}
+
+/* Spotlight Border Glow Effect */
+.glow-card {
+    position: relative;
+    background: var(--card-border, rgba(255, 255, 255, 0.03));
+    border-radius: 12px;
+    padding: 1px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.glow-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(90, 140, 240, 0.5), transparent 40%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}
+
+.glow-card-inner {
+    background-color: var(--card-bg, #0A0F1A);
+    border-radius: 11px;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.form-header h1 {
+    font-size: 2rem;
+    margin: 0 0 8px 0;
+    color: var(--text-primary, #F8FAFC);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.form-header p {
+    color: var(--text-secondary, #94A3B8);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-primary, #F8FAFC);
+    font-weight: 500;
+}
+
+#support-form input[type="text"],
+#support-form input[type="email"],
+#support-form select,
+#support-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--card-bg, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+    color: var(--text-primary, #f8fafc);
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+#support-form input::placeholder,
+#support-form textarea::placeholder {
+    color: var(--text-secondary, rgba(255, 255, 255, 0.3));
+}
+
+#support-form select option {
+    background-color: var(--bg-color, #0A0F1A);
+    color: var(--text-primary, #f8fafc);
+}
+
+#support-form input[type="text"]:focus,
+#support-form input[type="email"]:focus,
+#support-form select:focus,
+#support-form textarea:focus {
+    border-color: var(--accent-blue, #4d7fff);
+    outline: none;
+}
+
+#support-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Hold-to-Send Button styling */
+.hold-to-send-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    user-select: none;
+}
+
+.hold-ring {
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-90deg);
+    pointer-events: none;
+}
+
+.ring-progress {
+    stroke-dasharray: 289.02;
+    stroke-dashoffset: 289.02;
+}
+
+.ring-progress.snapping {
+    transition: stroke-dashoffset 0.25s ease-out;
+}
+
+.circle-btn {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #16191f;
+    border: 1px solid rgba(255,255,255,0.09);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    z-index: 2;
+    color: white;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+}
+
+.circle-btn:active {
+    transform: scale(0.95);
+}
+
+.circle-btn.success-state {
+    background: var(--success-green);
+    border-color: var(--success-green);
+    cursor: default;
+}
+
+.circle-btn.success-state:active {
+    transform: none;
+}
+
+.hold-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.25);
+    transition: color 0.3s ease;
+}
+
+.hold-to-send-wrapper.success-state .hold-label {
+    color: var(--success-green);
+}
+
+/* Nav & Return link styling */
+.nav-container {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--text-primary);
+}
+
+@media (max-width: 600px) {
+    .nav-container {
+        top: 20px;
+        left: 20px;
+    }
+    .support-wrapper {
+        padding: 80px 20px 40px;
+    }
+}

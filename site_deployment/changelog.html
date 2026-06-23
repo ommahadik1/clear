@@ -92,11 +92,15 @@
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>`;
 
-        let isLightMode = false;
+        let isLightMode = document.body.classList.contains('light-mode');
+        if (isLightMode) {
+            themeToggleBtn.innerHTML = moonIcon;
+        }
         themeToggleBtn.addEventListener('click', () => {
             isLightMode = !isLightMode;
             document.body.classList.toggle('light-mode', isLightMode);
             themeToggleBtn.innerHTML = isLightMode ? moonIcon : sunIcon;
+            localStorage.setItem('pe_light_mode', isLightMode);
         });
     </script>
 </body>

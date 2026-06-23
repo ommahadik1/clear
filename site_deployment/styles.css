@@ -389,11 +389,12 @@ footer a:hover {
 
 /* Light Mode Overrides */
 body.light-mode {
-    --bg-color: #FAFAFA;
-    --text-primary: #18181B;
-    --text-secondary: #52525B;
-    --card-bg: rgba(0, 0, 0, 0.03);
-    --card-border: rgba(0, 0, 0, 0.08);
+    --bg-color: #F8FAFC;
+    --text-primary: #0F172A;
+    --text-secondary: #64748B;
+    --card-bg: #FFFFFF;
+    --card-border: #E2E8F0;
+    box-shadow: inset 0 0 0 100vmax rgba(255,255,255,0.01); /* Smooths out rendering */
 }
 
 body.light-mode .top-nav {
@@ -402,28 +403,48 @@ body.light-mode .top-nav {
 }
 
 body.light-mode .nav-links a {
-    color: #52525B;
+    color: var(--text-secondary);
 }
 
 body.light-mode .nav-links a:hover {
-    color: #18181B;
+    color: var(--text-primary);
 }
 
 body.light-mode .btn-icon {
-    border-color: rgba(0, 0, 0, 0.1);
-    color: #52525B;
+    border-color: var(--card-border);
+    color: var(--text-secondary);
 }
 
 body.light-mode .btn-icon:hover {
-    color: #18181B;
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-primary);
+    background: #F1F5F9;
+    border-color: #CBD5E1;
 }
 
 body.light-mode .hero h1 {
-    background: linear-gradient(180deg, #18181B 0%, #52525B 100%);
+    background: linear-gradient(180deg, #0F172A 0%, #64748B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+body.light-mode .live-blur-demo span {
+    color: rgba(15, 23, 42, 0.8);
+    -webkit-text-fill-color: rgba(15, 23, 42, 0.8);
+}
+
+body.light-mode .live-blur-demo span:hover {
+    color: #0F172A;
+    -webkit-text-fill-color: #0F172A;
+}
+
+body.light-mode .step-node {
+    background: var(--card-bg);
+    border-color: var(--card-border);
+    color: var(--text-primary);
+}
+
+body.light-mode .security-text h4 {
+    color: var(--text-primary);
 }
 
 /* Feature Cards */
@@ -456,44 +477,124 @@ body.light-mode .hero h1 {
     font-weight: 600;
 }
 
-/* Flowchart */
+/* Flowchart UI Refactor */
 .flowchart-container {
     display: flex;
-    flex-wrap: nowrap !important;
+    justify-content: center;
+    align-items: stretch;
+    gap: 24px;
+    width: 100%;
+}
+
+.flowchart-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-width: 280px;
+}
+
+.step-marker-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.step-marker {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-color);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step-connector {
+    position: absolute;
+    top: 50%;
+    left: calc(50% + 34px);
+    right: calc(-50% + 34px);
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.step-connector::before {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.step-connector::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid var(--text-secondary);
+    border-right: 1px solid var(--text-secondary);
+    transform: rotate(45deg);
+    margin-left: -2px;
+    opacity: 0.5;
+}
+
+.step-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.step-card:hover {
+    border-color: color-mix(in srgb, var(--accent-color) 40%, transparent);
+    box-shadow: 0 0 60px -5px color-mix(in srgb, var(--accent-color) 15%, transparent);
+    transform: translateY(-5px);
+}
+
+.step-icon {
+    margin-bottom: 16px;
+    color: var(--accent-color);
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 16px;
-    width: 100%;
 }
 
-.step-node {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 2rem;
-    width: 100%;
-    max-width: 220px;
-    font-size: 1.1rem;
-    text-align: center;
-    color: #E4E4E7;
-    transition: all 0.3s ease;
+.step-icon svg {
+    width: 32px;
+    height: 32px;
 }
 
-.step-node:hover {
-    border: 1px solid color-mix(in srgb, var(--accent-color) 40%, transparent);
-    box-shadow: 0 0 60px -5px color-mix(in srgb, var(--accent-color) 15%, transparent);
+.step-card h4 {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.3;
 }
 
-.flowchart-arrow {
-    width: 80px;
-    height: 1px;
-    background: var(--accent-color);
-    opacity: 0.4;
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 10px;
-    flex-shrink: 1;
-    min-width: 20px;
+.step-card p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
 }
 
 /* Contributors */
@@ -522,6 +623,99 @@ body.light-mode .hero h1 {
     font-weight: 700;
     margin: 0 auto 16px;
     box-shadow: 0 4px 20px var(--accent-color);
+}
+
+.contributors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 32px;
+}
+
+.contributor-link {
+    display: block;
+    border-radius: 50%;
+}
+
+.contributor-avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #333;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+    object-fit: cover;
+    display: block;
+}
+
+body.light-mode .contributor-avatar {
+    border-color: #E2E8F0;
+}
+
+.contributor-avatar:hover {
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* Legal Links */
+.legal-links {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #9CA3AF;
+}
+
+.legal-links a {
+    color: #9CA3AF;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin: 0 4px;
+}
+
+.legal-links a:hover {
+    color: var(--text-primary);
+}
+
+/* Support Form */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: #1F2937;
+    color: white;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.light-mode .form-group input,
+body.light-mode .form-group select,
+body.light-mode .form-group textarea {
+    background: #FFFFFF;
+    color: #0F172A;
+    border-color: #CBD5E1;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 30%, transparent);
 }
 
 /* Timeline */
@@ -633,11 +827,14 @@ body.light-mode .hero h1 {
 @media (max-width: 900px) {
     .flowchart-container {
         flex-direction: column;
+        align-items: center;
+        gap: 32px;
     }
-    .flowchart-arrow {
-        width: 1px;
-        height: 40px;
-        margin: 15px 0;
+    .flowchart-step {
+        max-width: 400px;
+    }
+    .step-connector {
+        display: none;
     }
 }
 
@@ -656,15 +853,6 @@ body.light-mode .hero h1 {
     }
     nav ul li a {
         font-size: 0.9rem;
-    }
-    .flowchart-arrow {
-        width: 2px !important;
-        min-width: 2px !important;
-        height: 30px !important;
-        padding: 0 !important;
-        margin: 10px auto !important;
-        background-color: var(--accent-color);
-        border: none;
     }
     .button-group {
         flex-direction: column;
