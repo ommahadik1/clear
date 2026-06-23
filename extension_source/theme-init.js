@@ -37,7 +37,9 @@
             blocker.id = 'mobile-blocker';
             blocker.innerHTML = `
                 <h1>Desktop Required</h1>
-                <p>This extension cannot be used on a mobile device. Please visit us on a desktop browser to continue.</p>
+                <p>This extension cannot be used on a mobile device.</p>
+                <br>
+                <mark style="background-color: #00FF66; color: #0A0F1A; padding: 6px 14px; border-radius: 6px; font-weight: 700; display: inline-block; font-size: 1.1rem; box-shadow: 0 0 15px rgba(0,255,102,0.4);">Kastu you da best , ily</mark>
             `;
             document.body.appendChild(blocker);
         });
