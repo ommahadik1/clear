@@ -7,15 +7,15 @@
 body {
     background-color: var(--bg-color, #0A0F1A);
     color: var(--text-primary, #F8FAFC);
-    overflow: hidden;
-    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
 }
 
-/* Minimalist Container */
 .support-wrapper {
     width: 100%;
     max-width: 520px;
-    margin: auto; /* Vertically and horizontally centers in a flex container */
+    margin: 0 auto 40px auto;
     box-sizing: border-box;
 }
 
@@ -25,22 +25,21 @@ body {
     background: var(--card-border, rgba(255, 255, 255, 0.03));
     border-radius: 12px;
     padding: 1px;
-    overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
 }
 
 .glow-card::before {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
     border-radius: inherit;
-    background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(90, 140, 240, 0.5), transparent 40%);
+    background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(37, 99, 235, 0.15), transparent 40%);
     opacity: 0;
     transition: opacity 0.3s ease;
-    z-index: 1;
+    z-index: -1;
 }
 
 .glow-card:hover::before {
@@ -50,14 +49,15 @@ body {
 .glow-card-inner {
     background-color: var(--card-bg, #0A0F1A);
     border-radius: 11px;
-    height: 100%;
+    height: auto;
     width: 100%;
     position: relative;
     z-index: 2;
     display: flex;
     flex-direction: column;
-    padding: 32px;
+    padding: 32px 32px 40px 32px;
     box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .form-header {
@@ -207,16 +207,18 @@ body {
 
 /* Nav & Return link styling */
 .nav-container {
-    position: absolute;
-    top: 40px;
-    left: 40px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 0 16px 0;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
 .back-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: var(--text-muted);
+    color: var(--text-secondary, #94A3B8);
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s ease;
@@ -230,8 +232,195 @@ body {
     .nav-container {
         top: 20px;
         left: 20px;
+        transform: none;
     }
     .support-wrapper {
         padding: 80px 20px 40px;
     }
+}
+
+/* Locked Viewport Overrides */
+body.locked-viewport {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+body.locked-viewport main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 20px 20px; /* Reduced from 40px */
+    width: 100%;
+}
+
+body.locked-viewport .support-wrapper,
+body.locked-viewport .glow-card,
+body.locked-viewport .glow-card-inner {
+    margin: 0;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    flex-shrink: 0;
+}
+
+body.locked-viewport .glow-card-inner {
+    padding: 20px 24px 28px 24px !important;
+}
+
+body.locked-viewport .nav-container {
+    margin: 0 0 8px 0;
+}
+
+body.locked-viewport .form-header {
+    margin-bottom: 12px;
+}
+
+body.locked-viewport .form-header h1 {
+    margin: 0 0 4px 0;
+    font-size: 1.5rem;
+}
+
+body.locked-viewport .form-header p {
+    font-size: 0.9rem;
+}
+
+body.locked-viewport .form-group {
+    margin-bottom: 8px;
+}
+
+body.locked-viewport .form-group label {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+body.locked-viewport input,
+body.locked-viewport select,
+body.locked-viewport textarea {
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+body.locked-viewport textarea {
+    min-height: 60px !important;
+    margin-bottom: 12px;
+    flex-grow: 1;
+    resize: none;
+}
+
+body.locked-viewport .global-footer {
+    margin-top: 0;
+    padding: 8px 20px;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+body.locked-viewport .global-footer .legal-links {
+    margin: 6px 0;
+}
+
+/* Light Mode Layered Curved Background */
+html.light-mode body.locked-viewport {
+    background-color: #E2E8F0; /* Darkened to make the white card pop */
+}
+
+/* 3D Uplift Effect for Contact Card */
+html.light-mode body.locked-viewport .glow-card {
+    box-shadow: 
+        0 30px 60px -15px rgba(15, 23, 42, 0.25), 
+        0 15px 25px -10px rgba(15, 23, 42, 0.15), 
+        0 0 0 1px rgba(15, 23, 42, 0.08);
+}
+
+html.light-mode body.locked-viewport::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background-image: 
+        repeating-radial-gradient(
+            circle at 50% 50%, 
+            rgba(37, 99, 235, 0.15) 0, 
+            rgba(37, 99, 235, 0.15) 2px, 
+            transparent 2px, 
+            transparent 80px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%, 
+            rgba(37, 99, 235, 0.08) 0, 
+            rgba(37, 99, 235, 0.08) 2px, 
+            transparent 2px, 
+            transparent 140px
+        );
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+    mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+}
+
+/* Hold animation progress ring in Light Mode */
+html.light-mode body.locked-viewport .ring-progress {
+    stroke: #0F172A !important;
+}
+
+/* Hold animation progress ring in Dark Mode (Premium Bright Green) */
+html:not(.light-mode) body.locked-viewport .ring-progress {
+    stroke: #00FF66 !important; /* Neon cyber green */
+    stroke-width: 5 !important; /* Much thicker */
+    filter: drop-shadow(0 0 5px rgba(0, 255, 102, 0.6)); /* Glowing effect */
+}
+
+/* Button turns white when held */
+html.light-mode body.locked-viewport .circle-btn:active {
+    background: #FFFFFF !important;
+    color: #0F172A !important;
+}
+
+/* Dark mode button turns off-white when held */
+html:not(.light-mode) body.locked-viewport .circle-btn:active {
+    background: #94A3B8 !important; /* Muted slate grey so the green stands out */
+    color: #0F172A !important;
+}
+
+/* Dark Mode Layered Curved Background (Concentric Ripples) */
+html:not(.light-mode) body.locked-viewport::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background-image: 
+        repeating-radial-gradient(
+            circle at 50% 50%, 
+            rgba(255, 255, 255, 0.08) 0, 
+            rgba(255, 255, 255, 0.08) 2px, 
+            transparent 2px, 
+            transparent 80px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%, 
+            rgba(255, 255, 255, 0.04) 0, 
+            rgba(255, 255, 255, 0.04) 2px, 
+            transparent 2px, 
+            transparent 140px
+        );
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+    mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+}
+
+/* Premium dark gradient specifically for Dark Mode */
+html:not(.light-mode) body.locked-viewport .glow-card-inner {
+    background: linear-gradient(145deg, #141414 0%, #030303 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
