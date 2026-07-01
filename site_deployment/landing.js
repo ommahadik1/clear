@@ -63,3 +63,74 @@ document.querySelectorAll('.faq-question').forEach(button => {
         }
     });
 });
+
+// Auth Gate Interception Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const authLinks = document.querySelectorAll('.auth-required');
+    const modal = document.getElementById('auth-gate-modal');
+    const closeBtn = document.getElementById('close-modal-btn');
+
+    if (!modal) return;
+
+    authLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            modal.classList.remove('hidden');
+            // Trigger a reflow to ensure the transition plays
+            void modal.offsetWidth;
+            modal.classList.add('active');
+        });
+    });
+
+    const promptState = document.getElementById('auth-state-prompt');
+    const loginState = document.getElementById('auth-state-login');
+    const signupState = document.getElementById('auth-state-signup');
+    
+    const showLoginBtn = document.getElementById('show-login-btn');
+    const showSignupBtn = document.getElementById('show-signup-btn');
+    const backBtns = document.querySelectorAll('.back-to-prompt');
+
+    const resetModal = () => {
+        if (promptState && loginState && signupState) {
+            promptState.classList.remove('hidden');
+            loginState.classList.add('hidden');
+            signupState.classList.add('hidden');
+        }
+    };
+
+    if (showLoginBtn && promptState && loginState) {
+        showLoginBtn.addEventListener('click', () => {
+            promptState.classList.add('hidden');
+            loginState.classList.remove('hidden');
+        });
+    }
+
+    if (showSignupBtn && promptState && signupState) {
+        showSignupBtn.addEventListener('click', () => {
+            promptState.classList.add('hidden');
+            signupState.classList.remove('hidden');
+        });
+    }
+
+    backBtns.forEach(btn => {
+        btn.addEventListener('click', resetModal);
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            resetModal();
+        }, 300); // Wait for transition to finish
+    };
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+});
