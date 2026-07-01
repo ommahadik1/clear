@@ -133,4 +133,21 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     });
+
+    const oauthBtns = document.querySelectorAll('.oauth-btn');
+    oauthBtns.forEach(btn => {
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            if (this.classList.contains('loading')) return;
+
+            this.dataset.originalHtml = this.innerHTML;
+            const provider = this.classList.contains('google-btn') ? 'Google' : 
+                             this.classList.contains('github-btn') ? 'GitHub' : 'Provider';
+
+            this.innerHTML = `<span class="spinner"></span> Connecting to ${provider}...`;
+            this.classList.add('loading');
+            
+            console.log('OAuth initiated for:', provider);
+        });
+    });
 });

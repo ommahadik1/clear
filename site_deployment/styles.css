@@ -1232,3 +1232,30 @@ html.light-mode .auth-divider::after {
     padding: 0 12px;
 }
 
+/* OAuth Loading State */
+.oauth-btn.loading {
+    opacity: 0.7;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+html.light-mode .spinner {
+    border: 2px solid rgba(15, 23, 42, 0.2);
+    border-top-color: #0F172A;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
